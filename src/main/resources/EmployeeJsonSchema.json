@@ -1,0 +1,48 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"$id": "employee-schema",
+	"additionalProperties": true,
+	"required": [
+		"empfirstname",
+		"empmiddlename",
+		"emplastname",
+		"empdepartment",
+		"empsalary"
+	],
+	"properties": {
+		"empfirstname": {
+			"$id": "#/properties/empfirstname",
+			"type": "string",
+			"title": "The Empfirstname Schema",
+			"$ref": "#/definitions/non-empty-string"
+		},
+		"empmiddlename": {
+			"$id": "#/properties/empmiddlename",
+			"type": ["string","null"],
+			"title": "The Empmiddlename Schema"
+		},
+		"emplastname": {
+			"$id": "#/properties/emplastname",
+			"type": "string",
+			"title": "The Emplastname Schema",
+			"$ref": "#/definitions/non-empty-string"
+		},
+		"empdepartment": {
+			"$id": "#/properties/empdepartment",
+			"type": "string",
+			"title": "The Empdepartment Schema",
+			"$ref": "#/definitions/non-empty-string"
+		},
+		"empsalary": {
+			"$id": "#/properties/empsalary",
+			"type": "integer",
+			"title": "The Empsalary Schema"
+		}
+	},
+	"definitions": {
+		"non-empty-string": {
+			"type": "string",
+			"minLength": 1
+		}
+	}
+}

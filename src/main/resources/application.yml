@@ -1,0 +1,21 @@
+
+spring:
+  profiles:
+    active: dev
+camel:
+  component.servlet.mapping.context-path: /*
+  springboot:
+    shutdownTimeout: 2
+    main-run-controller: true
+  
+---
+
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    jdbc-url:  jdbc:postgresql://localhost:5432/Employees
+    username: postgres
+    password: pathaks01
+table:
+  name: tbl_employees
