@@ -28,7 +28,6 @@ public class ExceptionProcessor implements Processor {
         } else {
             response = new Response("ERROR", exception.getMessage());
         }
-        exchange.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, "400");
         exchange.getMessage().setBody(response);
 
     }

@@ -30,7 +30,6 @@ public class APIRoute extends RouteBuilder{
                 .to("direct:getEmployee")
             .post("/")
                 .consumes("application/json")
-                .to("direct:validateJson")
                 .type(Employee.class)
                 .to("direct:addEmployee")
             .put("/{id}")
