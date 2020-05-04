@@ -15,7 +15,7 @@ public class ResponseBean {
      * @param resCode the response code, 0 for success and 100 for failure
      * @throws resBody the body to be sent with the response.
      */
-    public Response response(String resCode, String resBody){
+    public Response response(String resCode, Object resBody){
         
         System.out.println(
             resBody

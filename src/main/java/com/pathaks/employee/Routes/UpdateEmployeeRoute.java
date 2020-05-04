@@ -1,6 +1,8 @@
 package com.pathaks.employee.Routes;
 
+import com.pathaks.employee.Beans.JsonValidatorBean;
 import com.pathaks.employee.Beans.ResponseBean;
+import com.pathaks.employee.Entities.Employee;
 import com.pathaks.employee.Processors.ExceptionProcessor;
 import com.pathaks.employee.Processors.UpdateEmployeeProcessor;
 
@@ -21,6 +23,7 @@ public class UpdateEmployeeRoute extends RouteBuilder{
 		 .to("log:com.pathaks.employee.updateEmployee?showHeaders=true");
 
 		from("direct:updateEmployee")
+		.bean(JsonValidatorBean.class, "validateEmployee(${body})")
 		.process(new UpdateEmployeeProcessor())
 		.log("Sending query")
         .to("log:com.pathaks.employee.updateEmployee?showHeaders=true&showBody=true")
@@ -30,13 +33,14 @@ public class UpdateEmployeeRoute extends RouteBuilder{
 				.log("update done")
 				.setBody(simple("${header.CamelGeneratedKeysRows[0]}"))
 				.marshal().json(JsonLibrary.Jackson)
-				.bean(ResponseBean.class, "response('0', ${body})")
+				.unmarshal().json(JsonLibrary.Jackson, Employee.class)
+				.bean(ResponseBean.class, "response('SUCCESS', ${body})")
 				.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200))
 				.to("log:com.pathaks.employee.updateEmployee?showHeaders=true&showBody=true")
 			.otherwise()
 				.log("Failed to insert ${header.request} into {{table.name}}")
 				.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(404))
-				.bean(ResponseBean.class, "response('100', 'Failed to update record with empid ${header.id} in {{table.name}}')")
+				.bean(ResponseBean.class, "response('ERROR', 'Failed to update record with empid ${header.id} in {{table.name}}')")
 				.to("log:com.pathaks.employee.updateEmployee?showHeaders=true&showBody=true")
 		.end()
         .to("log:com.pathaks.employee.updateEmployee?showHeaders=true");
