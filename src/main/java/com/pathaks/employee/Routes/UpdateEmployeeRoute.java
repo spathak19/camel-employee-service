@@ -1,5 +1,6 @@
 package com.pathaks.employee.Routes;
 
+import com.pathaks.employee.Beans.JsonValidatorBean;
 import com.pathaks.employee.Beans.ResponseBean;
 import com.pathaks.employee.Processors.ExceptionProcessor;
 import com.pathaks.employee.Processors.UpdateEmployeeProcessor;
@@ -21,6 +22,7 @@ public class UpdateEmployeeRoute extends RouteBuilder{
 		 .to("log:com.pathaks.employee.updateEmployee?showHeaders=true");
 
 		from("direct:updateEmployee")
+		.bean(JsonValidatorBean.class, "validateEmployee(${body})")
 		.process(new UpdateEmployeeProcessor())
 		.log("Sending query")
         .to("log:com.pathaks.employee.updateEmployee?showHeaders=true&showBody=true")
