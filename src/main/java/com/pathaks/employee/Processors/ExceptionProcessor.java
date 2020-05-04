@@ -17,10 +17,15 @@ public class ExceptionProcessor implements Processor {
         Response response = new Response();
 
         if (exception.getClass() == NullPointerException.class) {
-            response = new Response("100",
+            exchange.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, "400");
+            response = new Response("ERROR",
                     "You are missing one or more values in your request body. The mandatory fields are 'empfirstname', 'empmiddlename', 'emplastname', 'empdepartment', 'empsalary' ");
+        } if (exception.getClass() == NumberFormatException.class) {
+            exchange.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, "400");
+            response = new Response("ERROR",
+                    "You have provided a numeric value in either 'empfirstname', 'empmiddlename', 'emplastname', 'empdepartment'");
         } else {
-            response = new Response("100", exception.getMessage());
+            response = new Response("ERROR", exception.getMessage());
         }
         exchange.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, "400");
         exchange.getMessage().setBody(response);
