@@ -7,7 +7,7 @@ public class Response {
     }
 
 
-    public Response(String resCode, String resBody) {
+    public Response(String resCode, Object resBody) {
         super();
 
         this.responseCode = resCode;
@@ -15,7 +15,7 @@ public class Response {
     }
 
     private String responseCode;
-    private String responseBody;
+    private Object responseBody;
 
     public String getResponseCode() {
         return this.responseCode;
@@ -25,11 +25,11 @@ public class Response {
         this.responseCode = responseCode;
     }
 
-    public String getResponseBody() {
+    public Object getResponseBody() {
         return this.responseBody;
     }
 
-    public void setResponseBody(String responseBody) {
+    public void setResponseBody(Object responseBody) {
         this.responseBody = responseBody;
     }
     

@@ -1,6 +1,8 @@
 package com.pathaks.employee.Routes;
 
+import com.pathaks.employee.Beans.JsonValidatorBean;
 import com.pathaks.employee.Beans.ResponseBean;
+import com.pathaks.employee.Entities.Employee;
 import com.pathaks.employee.Processors.AddEmployeeProcessor;
 import com.pathaks.employee.Processors.ExceptionProcessor;
 
@@ -21,6 +23,7 @@ public class AddEmployeeRoute extends RouteBuilder {
          .to("log:com.pathaks.employee.addEmployee?showHeaders=true&showBody=true");
 
         from("direct:addEmployee")
+        .bean(JsonValidatorBean.class, "validateEmployee(${body})")
         .process(new AddEmployeeProcessor())
         .log("Sending query")
         .to("log:com.pathaks.employee.addEmployee?showHeaders=true&showBody=true")
@@ -30,13 +33,14 @@ public class AddEmployeeRoute extends RouteBuilder {
                 .log("insert done")
                 .setBody(simple("${header.CamelGeneratedKeysRows[0]}"))
 				.marshal().json(JsonLibrary.Jackson)
-                .bean(ResponseBean.class, "response('0', ${body})")
-                .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(201))
+				.unmarshal().json(JsonLibrary.Jackson, Employee.class)
+				.bean(ResponseBean.class, "response('SUCCESS', ${body})")
+				.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(201))
                 .to("log:com.pathaks.employee.addEmployee?showHeaders=true&showBody=true")
             .otherwise()
                 .log("Failed to insert ${header.request} into {{table.name}}")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(400))
-                .bean(ResponseBean.class, "response('100', 'Failed to insert record in {{table.name}}')")
+                .bean(ResponseBean.class, "response('ERROR', 'Failed to insert record in {{table.name}}')")
                 .to("log:com.pathaks.employee.addEmployee?showHeaders=true&showBody=true")
         .end()
         .to("log:com.pathaks.employee.addEmployee?showHeaders=true&showBody=true");

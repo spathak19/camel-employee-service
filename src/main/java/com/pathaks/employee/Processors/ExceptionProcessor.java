@@ -20,9 +20,9 @@ public class ExceptionProcessor implements Processor {
             response = new Response("100",
                     "You are missing one or more values in your request body. The mandatory fields are 'empfirstname', 'empmiddlename', 'emplastname', 'empdepartment', 'empsalary' ");
         } else {
-            response = new Response("100", exception.getMessage() + exception.getClass());
+            response = new Response("100", exception.getMessage());
         }
-        // exchange.getMessage().setHeader("Stacktrace", exception.getStackTrace());
+        exchange.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, "400");
         exchange.getMessage().setBody(response);
 
     }

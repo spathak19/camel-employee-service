@@ -23,7 +23,7 @@ public class JsonValidatorBean {
         System.out.println("salaryExists: "+ salaryExists);
 
         if(!(firstNameExists && lastNameExists && departmentExists && salaryExists)){
-            throw new Exception("Input Body is not valid");
+            throw new NullPointerException();
         }
 
     }
