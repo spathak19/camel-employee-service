@@ -20,7 +20,8 @@ public class ExceptionProcessor implements Processor {
             exchange.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, "400");
             response = new Response("ERROR",
                     "You are missing one or more values in your request body. The mandatory fields are 'empfirstname', 'empmiddlename', 'emplastname', 'empdepartment', 'empsalary' ");
-        } if (exception.getClass() == NumberFormatException.class) {
+        }
+        else if (exception.getClass() == NumberFormatException.class) {
             exchange.getMessage().setHeader(Exchange.HTTP_RESPONSE_CODE, "400");
             response = new Response("ERROR",
                     "You have provided a numeric value in either 'empfirstname', 'empmiddlename', 'emplastname', 'empdepartment'");
