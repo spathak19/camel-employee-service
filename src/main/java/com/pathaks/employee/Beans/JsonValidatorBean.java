@@ -19,10 +19,10 @@ public class JsonValidatorBean {
         boolean salaryExists = body.getEmpSalary() != null;
 
         Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
-        boolean isFirstNameNumeric = pattern.matcher(body.getEmpLastName()).matches();
-        boolean isMiddleNameNumeric = pattern.matcher(body.getEmpLastName()).matches();
+        boolean isFirstNameNumeric = pattern.matcher(body.getEmpFirstName()).matches();
+        boolean isMiddleNameNumeric = pattern.matcher(body.getEmpMiddleName()).matches();
         boolean isLastNameNumeric = pattern.matcher(body.getEmpLastName()).matches();
-        boolean isDepartmentNumeric = pattern.matcher(body.getEmpLastName()).matches();
+        boolean isDepartmentNumeric = pattern.matcher(body.getEmpDepartment()).matches();
 
         System.out.println("isLastNameNumeric: " + isLastNameNumeric);
         System.out.println("firstNameExists: " + firstNameExists);
