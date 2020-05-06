@@ -34,7 +34,7 @@ public class UpdateEmployeeRoute extends RouteBuilder{
 				.setBody(simple("${header.CamelGeneratedKeysRows[0]}"))
 				.marshal().json(JsonLibrary.Jackson)
 				.unmarshal().json(JsonLibrary.Jackson, Employee.class)
-				.bean(ResponseBean.class, "response('SUCCESS', ${body})")
+				.bean(ResponseBean.class, "responseEmployee('SUCCESS', ${body})")
 				.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200))
 				.to("log:com.pathaks.employee.updateEmployee?showHeaders=true&showBody=true")
 			.otherwise()

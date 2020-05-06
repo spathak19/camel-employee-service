@@ -1,21 +1,26 @@
 package com.pathaks.employee.Entities;
 
-public class Response {
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name ="Response")
+@XmlType(propOrder={"responseCode", "responseBody"})
+public class Response{
 
     public Response() {
-        super();
     }
 
 
-    public Response(String resCode, Object resBody) {
-        super();
-
+    public Response(String resCode, String resBody) {
         this.responseCode = resCode;
         this.responseBody = resBody;
     }
-
+    
     private String responseCode;
-    private Object responseBody;
+    private String responseBody;
 
     public String getResponseCode() {
         return this.responseCode;
@@ -25,12 +30,12 @@ public class Response {
         this.responseCode = responseCode;
     }
 
-    public Object getResponseBody() {
+    public String getResponseBody() {
         return this.responseBody;
     }
 
-    public void setResponseBody(Object responseBody) {
+    public void setResponseBody(String responseBody) {
         this.responseBody = responseBody;
     }
-    
+
 }

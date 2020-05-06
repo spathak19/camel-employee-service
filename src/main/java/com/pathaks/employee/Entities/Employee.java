@@ -1,9 +1,11 @@
 package com.pathaks.employee.Entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,34 +14,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlRootElement(name = "Employee")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Employee {
+public class Employee implements Serializable{
 
     @JsonProperty(value = "empid", required = false)
-    @XmlAttribute(name = "empid", required = false)
+    @XmlElement(name = "empid", required = false)
     private Integer empId;
 
     @JsonProperty(value = "empfirstname", required = true)
-    @XmlAttribute(name = "empfirstname", required = true)
+    @XmlElement(name = "empfirstname", required = true)
     private String empFirstName;
     
     @JsonProperty(value = "empmiddlename", required = false)
-    @XmlAttribute(name = "empmiddlename", required = false)
+    @XmlElement(name = "empmiddlename", required = false)
     private String empMiddleName;
     
     @JsonProperty(value = "emplastname", required = true)
-    @XmlAttribute(name = "emplastname", required = true)
+    @XmlElement(name = "emplastname", required = true)
     private String empLastName;
 
     @JsonProperty(value = "empsalary", required = true)
-    @XmlAttribute(name = "empsalary", required = true)
+    @XmlElement(name = "empsalary", required = true)
     private BigDecimal empSalary;
     
     @JsonProperty(value = "empdepartment", required = true)
-    @XmlAttribute(name = "empdepartment", required = true)
+    @XmlElement(name = "empdepartment", required = true)
     private String empDepartment;
     
     @JsonProperty(value = "emphiredate", required = false)
-    @XmlAttribute(name = "emphiredate", required = false)
+    @XmlElement(name = "emphiredate", required = false)
     private Date empHireDate;
     
     public Integer getEmpId() {

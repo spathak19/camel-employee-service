@@ -1,10 +1,12 @@
 package com.pathaks.employee.Routes;
 
 import com.pathaks.employee.Beans.ResponseBean;
+import com.pathaks.employee.Entities.Employee;
 import com.pathaks.employee.Processors.ExceptionProcessor;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,13 +27,22 @@ public class GetEmployeeRoute extends RouteBuilder {
         .choice()
             .when(body().isNotNull())
                 .log("Found empid ${header.id} in database")
-				.bean(ResponseBean.class, "response('SUCCESS', ${body})")
+                .marshal().json(JsonLibrary.Jackson)
+                .unmarshal().json(JsonLibrary.Jackson, Employee.class)
+				.bean(ResponseBean.class, "responseEmployee('SUCCESS', ${body})")
                 .to("log:com.pathaks.employee.getEmployee?showHeaders=true&showBody=true")
             .otherwise()
                 .log("Could not find empid ${header.id} in database")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(404))
                 .bean(ResponseBean.class, "response('ERROR', 'Could not find empid ${header.id} in database')")
                 .to("log:com.pathaks.employee.getEmployee?showHeaders=true&showBody=true")
+        .end()
+        .choice()
+            .when()
+                .simple("${header.accept} == 'application/xml'")
+                .setHeader(Exchange.CONTENT_TYPE, constant("application/xml"))
+            .otherwise()
+                .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
         .end()
         .to("log:com.pathaks.employee.getEmployee?showHeaders=true&showBody=true");
     }
