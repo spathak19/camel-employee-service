@@ -1,12 +1,10 @@
 package com.pathaks.employee.Routes;
 
 import com.pathaks.employee.Beans.ResponseBean;
-import com.pathaks.employee.Entities.Employee;
 import com.pathaks.employee.Processors.ExceptionProcessor;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,8 +25,6 @@ public class GetEmployeeRoute extends RouteBuilder {
         .choice()
             .when(body().isNotNull())
                 .log("Found empid ${header.id} in database")
-                .marshal().json(JsonLibrary.Jackson)
-				.unmarshal().json(JsonLibrary.Jackson, Employee.class)
 				.bean(ResponseBean.class, "response('SUCCESS', ${body})")
                 .to("log:com.pathaks.employee.getEmployee?showHeaders=true&showBody=true")
             .otherwise()
