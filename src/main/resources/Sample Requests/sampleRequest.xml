@@ -1,0 +1,7 @@
+<Employee>
+    <empfirstname>First Name</empfirstname>
+    <empmiddlename></empmiddlename>
+    <emplastname>Last Name</emplastname>
+    <empdepartment>Department</empdepartment>
+    <empsalary>50000.00</empsalary>
+</Employee>
