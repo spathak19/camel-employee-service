@@ -34,6 +34,13 @@ public class DeleteEmployeeRoute extends RouteBuilder{
                 .bean(ResponseBean.class, "response('ERROR', 'Could not find empid ${header.id} in database')")
                 .to("log:com.pathaks.employee.deleteEmployee?showHeaders=true&showBody=true")
         .end()
+        .choice()
+            .when()
+                .simple("${header.accept} == 'application/xml'")
+                .setHeader(Exchange.CONTENT_TYPE, constant("application/xml"))
+            .otherwise()
+                .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+        .end()
         .to("log:com.pathaks.employee.deleteEmployee?showHeaders=true&showBody=true");
     }
     

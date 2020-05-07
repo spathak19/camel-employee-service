@@ -15,7 +15,6 @@ public class APIRoute extends RouteBuilder{
 
         restConfiguration().component("servlet")
         .host("localhost").bindingMode(RestBindingMode.json_xml).dataFormatProperty("prettyPrint", "true")
-        .dataFormatProperty("json.out.enableFeatures", "ACCEPT_CASE_INSENSITIVE_PROPERTIES")
         .clientRequestValidation(true).enableCORS(true);
 
 
@@ -23,23 +22,19 @@ public class APIRoute extends RouteBuilder{
          .process(new ExceptionProcessor())
          .handled(true);
 
+
         rest("/employee")
             .get("/")
-                // .produces("application/json")
                 .to("direct:getAllEmployees")
             .get("/{id}")
-                // .produces("application/json") 
                 .to("direct:getEmployee")
             .post("/")
-                // .consumes("application/json")
                 .type(Employee.class)
                 .to("direct:addEmployee")
             .put("/{id}")
-                // .consumes("application/json")
                 .type(Employee.class)
                 .to("direct:updateEmployee")
             .delete("/{id}")
-                .produces("application/json") 
                 .to("direct:deleteEmployee");
 
     }

@@ -43,6 +43,13 @@ public class AddEmployeeRoute extends RouteBuilder {
                 .bean(ResponseBean.class, "response('ERROR', 'Failed to insert record in {{table.name}}')")
                 .to("log:com.pathaks.employee.addEmployee?showHeaders=true&showBody=true")
         .end()
+        .choice()
+            .when()
+                .simple("${header.accept} == 'application/xml'")
+                .setHeader(Exchange.CONTENT_TYPE, constant("application/xml"))
+            .otherwise()
+                .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+        .end()
         .to("log:com.pathaks.employee.addEmployee?showHeaders=true&showBody=true");
     }
 }

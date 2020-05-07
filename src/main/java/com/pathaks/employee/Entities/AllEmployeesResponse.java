@@ -1,11 +1,10 @@
 package com.pathaks.employee.Entities;
 
-import java.io.Serializable;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -13,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Response")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder={"responseCode", "responseBody"})
-public class AllEmployeesResponse implements Serializable {
+public class AllEmployeesResponse {
 
     public AllEmployeesResponse() {
         super();

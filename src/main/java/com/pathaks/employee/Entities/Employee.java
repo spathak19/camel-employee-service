@@ -1,20 +1,20 @@
 package com.pathaks.employee.Entities;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 @XmlRootElement(name = "Employee")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Employee implements Serializable{
+@JsonRootName(value = "Employee")
+public class Employee{
 
     @JsonProperty(value = "empid", required = false)
     @XmlElement(name = "empid", required = false)

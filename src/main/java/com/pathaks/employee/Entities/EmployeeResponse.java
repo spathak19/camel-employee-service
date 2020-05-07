@@ -1,17 +1,15 @@
 package com.pathaks.employee.Entities;
 
-import java.io.Serializable;
-
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlMixed;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "Response")
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder={"responseCode", "responseBody"})
-public class EmployeeResponse implements Serializable{
+public class EmployeeResponse{
 
     public EmployeeResponse() {
         super();
@@ -31,19 +29,19 @@ public class EmployeeResponse implements Serializable{
     @XmlElement(name="ResponseBody")
     public Employee responseBody;
 
-    // public Employee getResponseBody() {
-    //     return this.responseBody;
-    // }
+    public Employee getResponseBody() {
+        return this.responseBody;
+    }
 
-    // public void setResponseBody(Employee responseBody) {
-    //     this.responseBody = responseBody;
-    // }
+    public void setResponseBody(Employee responseBody) {
+        this.responseBody = responseBody;
+    }
 
-    // public String getResponseCode() {
-    //     return this.responseCode;
-    // }
+    public String getResponseCode() {
+        return this.responseCode;
+    }
 
-    // public void setResponseCode(String resBody) {
-    //     this.responseCode = resBody;
-    // }
+    public void setResponseCode(String resBody) {
+        this.responseCode = resBody;
+    }
 }
